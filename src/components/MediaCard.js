@@ -14,7 +14,7 @@ const styles = {
     maxWidth: 500
   },
   media: {
-    height: 140
+    height: 200
   }
 };
 
@@ -38,14 +38,7 @@ function MediaCard(props) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
+      <CardActions />
     </Card>
   );
 }
