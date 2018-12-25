@@ -9,6 +9,18 @@ const styles = theme => ({
   root: {}
 });
 
+var myDropzone;
+
+function initCallback(dropzone) {
+  myDropzone = dropzone;
+}
+
+function removeFile() {
+  if (myDropzone) {
+    myDropzone.removeFile();
+  }
+}
+
 class DropFile extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +28,7 @@ class DropFile extends React.Component {
     // For a full list of possible configurations,
     // please consult http://www.dropzonejs.com/#configuration
     this.djsConfig = {
-      addRemoveLinks: false,
+      addRemoveLinks: true,
       acceptedFiles: "image/jpeg,image/png,image/gif",
       autoProcessQueue: false,
       previewTemplate: ReactDOMServer.renderToStaticMarkup(
@@ -30,12 +42,6 @@ class DropFile extends React.Component {
           <div className="dz-progress">
             <span className="dz-upload" data-dz-uploadprogress="true" />
           </div>
-          <div className="dz-success-mark">
-            <span>✔</span>
-          </div>
-          <div className="dz-error-mark">
-            <span>✘</span>
-          </div>
           <div className="dz-error-message">
             <span data-dz-errormessage="true" />
           </div>
@@ -46,12 +52,32 @@ class DropFile extends React.Component {
     this.componentConfig = {
       iconFiletypes: [".jpg", ".png"],
       showFiletypeIcon: true,
-      postUrl: "no-url"
+      postUrl: "no-url",
+      maxFiles: 1
     };
+
+    this.callbackArray = [
+      event => {
+        console.log(event);
+        console.log(this.dropzone);
+        this.dropzone.removeAllFiles();
+      },
+      event => {
+        console.log(event);
+        console.log(this.dropzone);
+      }
+    ];
+
+    this.dropzone = null;
   }
 
   handleFileAdded(file) {
     console.log(file);
+  }
+
+  handleDelete(file) {
+    console.log("delete " + file);
+    this.dropzone.removeAllFiles();
   }
   render() {
     const config = this.componentConfig;
@@ -59,7 +85,10 @@ class DropFile extends React.Component {
 
     // For a list of all possible events (there are many), see README.md!
     const eventHandlers = {
-      addedfile: this.handleFileAdded.bind(this)
+      init: dz => (this.dropzone = dz),
+      drop: this.callbackArray,
+      addedfile: this.handleFileAdded.bind(this),
+      complete: this.handleDelete.bind(this)
     };
 
     return (
