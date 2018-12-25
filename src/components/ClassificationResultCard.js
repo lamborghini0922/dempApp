@@ -9,6 +9,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
+import ClassificationTable from "./ClassificationTable";
+
 const styles = {
   card: {},
   media: {
@@ -19,7 +21,7 @@ const styles = {
   }
 };
 
-class MediaCard extends React.Component {
+class ClassificationResultCard extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -31,12 +33,7 @@ class MediaCard extends React.Component {
     return (
       <Card className={classes.card}>
         <CardActionArea>
-          <CardMedia
-            component="img"
-            className={classes.media}
-            image={image}
-            title={title}
-          />
+          <ClassificationTable />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {title}
@@ -54,8 +51,8 @@ class MediaCard extends React.Component {
   }
 }
 
-MediaCard.propTypes = {
+ClassificationResultCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(MediaCard);
+export default withStyles(styles)(ClassificationResultCard);

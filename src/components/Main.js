@@ -4,6 +4,7 @@ import Paper from "material-ui/Paper";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import MyContents from "./MyContents";
 import MediaCard from "./MediaCard";
+import ClassificationResultCard from "./ClassificationResultCard";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
@@ -18,30 +19,6 @@ const styles = theme => ({
   }
 });
 
-function FormRow(props) {
-  const { classes } = props;
-  const { images } = props;
-  console.log(images);
-
-  return (
-    <React.Fragment>
-      <Grid item xs={4}>
-        <MediaCard image={images[0]} />
-      </Grid>
-      <Grid item xs={4}>
-        <MediaCard image={images[1]} />
-      </Grid>
-      <Grid item xs={4}>
-        <MediaCard image={images[2]} />
-      </Grid>
-    </React.Fragment>
-  );
-}
-
-FormRow.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -49,22 +26,45 @@ class Main extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const imagesList1 = ["/static/images/dog_original.png", "", ""];
-    const titleList1 = ["upload images", "Classification Results", "Softmax"];
-    const imagesList2 = [
+    const images = [
+      "/static/images/dog_original.png",
       "/static/images/dog_guided_backprop.png",
       "/static/images/dog_grad_cam.png",
       "/static/images/dog_guided_grad_cam.png"
+    ];
+    const titles = [
+      "upload images",
+      "Classification Results",
+      "Softmax",
+      "Guided Backprop Cat",
+      "Grad-CAM Cat",
+      "Guided Grad-CAM Cat"
     ];
     return (
       <MuiThemeProvider>
         <div className={classes.root}>
           <Grid container spacing={8}>
             <Grid container item xs={12} spacing={24}>
-              <FormRow classes={classes} images={imagesList1} />
+              <Grid item xs={4}>
+                <MediaCard image={images[0]} title={titles[0]} />
+              </Grid>
+              <Grid item xs={4}>
+                <ClassificationResultCard title={titles[1]} />
+              </Grid>
+              <Grid item xs={4}>
+                <MediaCard title={titles[2]} />
+              </Grid>
             </Grid>
             <Grid container item xs={12} spacing={24}>
-              <FormRow classes={classes} images={imagesList2} />
+              <Grid item xs={4}>
+                <MediaCard image={images[1]} title={titles[3]} />
+              </Grid>
+              <Grid item xs={4}>
+                <MediaCard image={images[2]} title={titles[4]} />
+              </Grid>
+              <Grid item xs={4}>
+                <MediaCard image={images[3]} title={titles[5]} />
+              </Grid>
             </Grid>
           </Grid>
         </div>

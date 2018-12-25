@@ -11,7 +11,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 const styles = {
   root: {
     flexGrow: 1,
-    marginBottom: 10
+    marginBottom: 20
   },
   grow: {
     flexGrow: 1
@@ -29,9 +29,9 @@ function ButtonAppBar(props) {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            Grad-CAM Demo
+            Cell Inspector
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Sign in</Button>
         </Toolbar>
       </AppBar>
     </div>

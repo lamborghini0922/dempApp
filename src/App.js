@@ -50,7 +50,7 @@ class App extends React.Component {
             color="textSecondary"
             component="p"
           >
-            Something here to give the footer a purpose!
+            © syntheticgestalt Inc. All rights reserved.
           </Typography>
         </footer>
       </div>
