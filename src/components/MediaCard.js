@@ -15,7 +15,7 @@ const styles = {
     width: 270,
     height: 270,
     backgroundColor: "gray",
-    align: "center"
+    margin: "auto"
   }
 };
 
@@ -28,26 +28,27 @@ class MediaCard extends React.Component {
     const { classes } = this.props;
     const { image } = this.props;
     const { title } = this.props;
+
     return (
       <Card className={classes.card}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            className={classes.media}
-            image={image}
-            title={title}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {title}
-            </Typography>
-            <Typography component="p">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+        <CardMedia
+          component="img"
+          className={classes.media}
+          image={image}
+          title={title}
+        />
+
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {title}
+          </Typography>
+          <Typography component="p">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam
+          </Typography>
+        </CardContent>
+
         <CardActions />
       </Card>
     );

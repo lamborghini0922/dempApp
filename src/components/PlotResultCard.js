@@ -9,19 +9,14 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
-import ClassificationTable from "./ClassificationTable";
+import PlotResult from "./PlotResult";
 
 const styles = {
   card: {},
-  media: {
-    width: 270,
-    height: 270,
-    backgroundColor: "gray",
-    align: "center"
-  }
+  media: {}
 };
 
-class ClassificationResultCard extends React.Component {
+class PlotResultCard extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -32,7 +27,9 @@ class ClassificationResultCard extends React.Component {
     const { title } = this.props;
     return (
       <Card className={classes.card}>
-        <ClassificationTable />
+        <div className={classes.media}>
+          <PlotResult />
+        </div>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {title}
@@ -50,8 +47,8 @@ class ClassificationResultCard extends React.Component {
   }
 }
 
-ClassificationResultCard.propTypes = {
+PlotResultCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ClassificationResultCard);
+export default withStyles(styles)(PlotResultCard);

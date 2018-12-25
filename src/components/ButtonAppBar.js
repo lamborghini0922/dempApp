@@ -24,9 +24,10 @@ const styles = {
 
 function ButtonAppBar(props) {
   const { classes } = props;
+  const myStyle = { backgroundColor: "black" };
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" style={myStyle}>
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow}>
             Cell Inspector

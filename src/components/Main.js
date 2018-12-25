@@ -5,6 +5,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import MyContents from "./MyContents";
 import MediaCard from "./MediaCard";
 import ClassificationResultCard from "./ClassificationResultCard";
+import PlotResultCard from "./PlotResultCard";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
@@ -52,7 +53,7 @@ class Main extends React.Component {
                 <ClassificationResultCard title={titles[1]} />
               </Grid>
               <Grid item xs={4}>
-                <MediaCard title={titles[2]} />
+                <PlotResultCard title={titles[2]} />
               </Grid>
             </Grid>
             <Grid container item xs={12} spacing={24}>
