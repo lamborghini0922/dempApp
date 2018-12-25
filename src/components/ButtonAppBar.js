@@ -24,7 +24,7 @@ const styles = {
 
 function ButtonAppBar(props) {
   const { classes } = props;
-  const myStyle = { backgroundColor: "black" };
+  const myStyle = {};
   return (
     <div className={classes.root}>
       <AppBar position="static" style={myStyle}>

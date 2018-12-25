@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ButtonAppBar from "./components/ButtonAppBar";
 import Typography from "@material-ui/core/Typography";
 import Main from "./components/Main";
+import DropFileCard from "./components/DropFileCard";
 
 const styles = theme => ({
   "@global": {

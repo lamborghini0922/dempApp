@@ -6,6 +6,7 @@ import MyContents from "./MyContents";
 import MediaCard from "./MediaCard";
 import ClassificationResultCard from "./ClassificationResultCard";
 import PlotResultCard from "./PlotResultCard";
+import DropFileCard from "./DropFileCard";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
@@ -47,7 +48,7 @@ class Main extends React.Component {
           <Grid container spacing={8}>
             <Grid container item xs={12} spacing={24}>
               <Grid item xs={4}>
-                <MediaCard image={images[0]} title={titles[0]} />
+                <DropFileCard image={images[0]} title={titles[0]} />
               </Grid>
               <Grid item xs={4}>
                 <ClassificationResultCard title={titles[1]} />
