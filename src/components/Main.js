@@ -9,6 +9,7 @@ import PlotResultCard from "./PlotResultCard";
 import DropFileCard from "./DropFileCard";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -26,7 +27,26 @@ class Main extends React.Component {
     super(props);
   }
 
+  componentWillReceiveProps(nextState) {
+    console.log(`receiveProps`);
+    console.log(JSON.stringify(nextState));
+
+    if (nextState.loginStatus) {
+      this.setState({ loginStatus: nextState.loginStatus });
+      localStorage.setItem("session", this.loginStatus);
+    } else {
+      this.setState({ message: "login fail" });
+    }
+  }
+
   render() {
+    const { loginStatus } = this.props;
+    const sts = loginStatus.loginStatus.status;
+    console.log("main render()");
+    console.log(JSON.stringify(loginStatus));
+    console.log(JSON.stringify(sts));
+    console.log(`status=${sts}`);
+
     const { classes } = this.props;
     const images = [
       "/static/images/dog_original.png",
@@ -42,7 +62,9 @@ class Main extends React.Component {
       "Grad-CAM Cat",
       "Guided Grad-CAM Cat"
     ];
-    return (
+    return sts !== 1 ? (
+      <Redirect to={"/login"} />
+    ) : (
       <MuiThemeProvider>
         <div className={classes.root}>
           <Grid container spacing={8}>

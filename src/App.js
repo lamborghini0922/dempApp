@@ -1,10 +1,13 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import ButtonAppBar from "./components/ButtonAppBar";
+import ButtonAppBar from "./containers/ButtonAppBar";
 import Typography from "@material-ui/core/Typography";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import Main from "./components/Main";
+import { connect } from "react-redux";
+import Main from "./containers/Main";
 import SignIn from "./containers/SignIn";
+import Auth from "./Auth";
+import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
   "@global": {
@@ -65,7 +68,12 @@ class App extends React.Component {
   }
 }
 
-export default withStyles(styles)(App);
+/*
+const connectedApp = connect(state => ({
+    user: state.user
+}))(withStyles(styles)(App));
 
-import { login, logout } from "./actions/SignIn";
-console.log(login("hiroo", "password"));
+export default connectedApp;
+*/
+
+export default withStyles(styles)(App);

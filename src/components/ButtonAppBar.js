@@ -22,21 +22,48 @@ const styles = {
   }
 };
 
-function ButtonAppBar(props) {
-  const { classes } = props;
-  const myStyle = { backgroundColor: "#999" };
-  return (
-    <div className={classes.root}>
-      <AppBar position="static" style={myStyle}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            Cell Inspector
-          </Typography>
-          <Button color="inherit">Sign in</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+class ButtonAppBar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    const { loginStatus } = this.props;
+    const { logout } = this.props;
+    const sts = loginStatus.loginStatus.status;
+    console.log("logout button");
+    console.log(sts);
+    if (sts === 1) {
+      console.log("do logout");
+      logout();
+    }
+  }
+
+  render() {
+    const { classes } = this.props;
+    const myStyle = { backgroundColor: "#999" };
+    const { logout } = this.props;
+    return (
+      <div className={classes.root}>
+        <AppBar position="static" style={myStyle}>
+          <Toolbar>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              Cell Inspector
+            </Typography>
+            <Button
+              color="inherit"
+              type="submit"
+              className={classes.submit}
+              onClick={this.handleClick.bind(this)}
+            >
+              Sign in
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
 
 ButtonAppBar.propTypes = {

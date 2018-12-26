@@ -1,9 +1,11 @@
-var initialState = {
+const initialState = {
   session: null,
-  status: 0
+  status: 0,
+  message: "",
+  buttonText: "Sign in"
 };
 
-export default function login(state = initialState, action) {
+const loginStatus = (state = initialState, action) => {
   console.log("reducers/login");
   console.log(`action=${action.type}`);
   console.log(JSON.stringify(action.data));
@@ -11,23 +13,33 @@ export default function login(state = initialState, action) {
   switch (action.type) {
     case "LOGIN_REQUEST":
       _state.status = 0;
+      _state.message = "loading...";
+      _state.buttonText = "connect...";
       return _state;
 
     case "LOGIN_RECEIVE_SUCCESS":
       _state.status = 1;
       _state.session = action.data.result.user;
-      console.log(JSON.stringify(_state));
+      _state.message = "login successful";
+      _state.buttonText = "Sign out";
       return _state;
 
     case "LOGIN_RECEIVE_FAILED":
       _state.status = -1;
+      _state.message = "login error";
+      _state.buttonText = "Sign in";
       return _state;
 
     case "LOGOUT":
+      _state.status = 0;
       _state.session = null;
+      _state.message = "logout";
+      _state.buttonText = "Sign in";
       return _state;
 
     default:
       return state;
   }
-}
+};
+
+export default loginStatus;

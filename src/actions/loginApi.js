@@ -1,12 +1,12 @@
-import signInAPI from "../APIs/SignIn";
+import signInApi from "../APIs/signInApi";
 
-export function login(user, password) {
+const loginApi = (user, password) => {
   return dispatch => {
     dispatch(requestLogin());
-    signInAPI(user, password)
+    signInApi(user, password)
       .then(response => {
         console.log(`response=${response.data.status}`);
-        if (response.data.status == "OK") {
+        if (response.data.status === "OK") {
           dispatch(receiveLoginSuccess(response.data));
         } else {
           dispatch(receiveLoginFailed());
@@ -17,9 +17,10 @@ export function login(user, password) {
         dispatch(receiveLoginFailed());
       });
   };
-}
+};
 
 export function logout() {
+  console.log("logout");
   return { type: "LOGOUT" };
 }
 
@@ -43,4 +44,4 @@ function receiveLoginFailed() {
   };
 }
 
-export default login;
+export default loginApi;

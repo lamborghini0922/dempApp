@@ -57,17 +57,17 @@ class SignIn extends React.Component {
     console.log(`receiveProps`);
     console.log(JSON.stringify(nextState));
 
-    if (nextState.user.session) {
-      this.setState({ session: nextState.user.session });
-      localStorage.setItem("session", this.state.session);
+    if (nextState.loginStatus) {
+      this.setState({ loginStatus: nextState.loginStatus });
+      localStorage.setItem("session", this.loginStatus);
     } else {
       this.setState({ message: "login fail" });
     }
   }
 
   onLogin(e) {
-    const { login } = this.props;
     e.preventDefault();
+    const { loginApi } = this.props;
     console.log("onLogin");
 
     let id = this.state.contact.id;
@@ -81,7 +81,7 @@ class SignIn extends React.Component {
       this.setState({ message: null });
       // api 呼び出し
       console.log(`id=${id} pass=${pass}`);
-      login(id, pass);
+      loginApi(id, pass);
     }
   }
 
@@ -92,11 +92,14 @@ class SignIn extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
-    console.log("render())");
-    console.log(JSON.stringify(user));
+    const { loginStatus } = this.props;
+    const sts = loginStatus.loginStatus.status;
+    console.log("render()");
+    console.log(JSON.stringify(loginStatus));
+    console.log(JSON.stringify(sts));
+    console.log(`status=${sts}`);
     const { classes } = this.props;
-    return this.state.session ? (
+    return sts === 1 ? (
       <Redirect to={"/"} />
     ) : (
       <main className={classes.main}>
