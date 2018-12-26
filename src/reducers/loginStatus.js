@@ -6,15 +6,12 @@ const initialState = {
 };
 
 const loginStatus = (state = initialState, action) => {
-  console.log("reducers/login");
-  console.log(`action=${action.type}`);
-  console.log(JSON.stringify(action.data));
   var _state = Object.assign({}, state);
   switch (action.type) {
     case "LOGIN_REQUEST":
       _state.status = 0;
       _state.message = "loading...";
-      _state.buttonText = "connect...";
+      _state.buttonText = "connecting...";
       return _state;
 
     case "LOGIN_RECEIVE_SUCCESS":

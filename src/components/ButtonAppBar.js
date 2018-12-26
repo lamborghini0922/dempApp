@@ -30,13 +30,10 @@ class ButtonAppBar extends React.Component {
   handleClick(e) {
     e.preventDefault();
     const { loginStatus } = this.props;
-    const { logout } = this.props;
+    const { logoutApi } = this.props;
     const sts = loginStatus.loginStatus.status;
-    console.log("logout button");
-    console.log(sts);
     if (sts === 1) {
-      console.log("do logout");
-      logout();
+      logoutApi();
     }
   }
 
@@ -44,6 +41,9 @@ class ButtonAppBar extends React.Component {
     const { classes } = this.props;
     const myStyle = { backgroundColor: "#999" };
     const { logout } = this.props;
+    const { loginStatus } = this.props;
+    const buttonLabel = loginStatus.loginStatus.buttonText;
+
     return (
       <div className={classes.root}>
         <AppBar position="static" style={myStyle}>
@@ -57,7 +57,7 @@ class ButtonAppBar extends React.Component {
               className={classes.submit}
               onClick={this.handleClick.bind(this)}
             >
-              Sign in
+              {buttonLabel}
             </Button>
           </Toolbar>
         </AppBar>

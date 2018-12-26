@@ -10,6 +10,8 @@ import DropFileCard from "./DropFileCard";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
+import ButtonAppBar from "../containers/ButtonAppBar";
+import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
   root: {
@@ -19,6 +21,10 @@ const styles = theme => ({
     padding: theme.spacing.unit,
     textAlign: "center",
     color: theme.palette.text.secondary
+  },
+  footer: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing.unit * 2
   }
 });
 
@@ -28,9 +34,6 @@ class Main extends React.Component {
   }
 
   componentWillReceiveProps(nextState) {
-    console.log(`receiveProps`);
-    console.log(JSON.stringify(nextState));
-
     if (nextState.loginStatus) {
       this.setState({ loginStatus: nextState.loginStatus });
       localStorage.setItem("session", this.loginStatus);
@@ -42,10 +45,6 @@ class Main extends React.Component {
   render() {
     const { loginStatus } = this.props;
     const sts = loginStatus.loginStatus.status;
-    console.log("main render()");
-    console.log(JSON.stringify(loginStatus));
-    console.log(JSON.stringify(sts));
-    console.log(`status=${sts}`);
 
     const { classes } = this.props;
     const images = [
@@ -67,6 +66,7 @@ class Main extends React.Component {
     ) : (
       <MuiThemeProvider>
         <div className={classes.root}>
+          <ButtonAppBar />
           <Grid container spacing={8}>
             <Grid container item xs={12} spacing={24}>
               <Grid item xs={4}>
@@ -91,6 +91,16 @@ class Main extends React.Component {
               </Grid>
             </Grid>
           </Grid>
+          <footer className={classes.footer}>
+            <Typography
+              variant="subtitle1"
+              align="center"
+              color="textSecondary"
+              component="p"
+            >
+              © syntheticgestalt Inc. All rights reserved.
+            </Typography>
+          </footer>
         </div>
       </MuiThemeProvider>
     );

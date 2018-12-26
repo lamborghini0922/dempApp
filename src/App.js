@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import ButtonAppBar from "./containers/ButtonAppBar";
+
 import Typography from "@material-ui/core/Typography";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
@@ -47,21 +47,10 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <ButtonAppBar />
           <Switch>
             <Route exact path="/" component={Main} />
             <Route path="/login" component={SignIn} />
           </Switch>
-          <footer className={classes.footer}>
-            <Typography
-              variant="subtitle1"
-              align="center"
-              color="textSecondary"
-              component="p"
-            >
-              © syntheticgestalt Inc. All rights reserved.
-            </Typography>
-          </footer>
         </div>
       </Router>
     );

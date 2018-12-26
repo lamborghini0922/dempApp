@@ -19,8 +19,14 @@ const loginApi = (user, password) => {
   };
 };
 
+export const logoutApi = () => {
+  return dispatch => {
+    dispatch(logout());
+  };
+};
+
 export function logout() {
-  console.log("logout");
+  console.log("logout atcion");
   return { type: "LOGOUT" };
 }
 

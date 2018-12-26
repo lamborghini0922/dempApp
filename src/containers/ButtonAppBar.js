@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 const mapStateToProps = state => {
-  console.log("mapStateToProps");
-  console.log(JSON.stringify(state));
   return {
     loginStatus: state
   };
@@ -13,8 +11,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: (id, password) => {
-      logout(id, password);
+    logoutApi: () => {
+      dispatch(logout());
     }
   };
 };
