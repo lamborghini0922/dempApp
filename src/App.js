@@ -2,8 +2,9 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import ButtonAppBar from "./components/ButtonAppBar";
 import Typography from "@material-ui/core/Typography";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import Main from "./components/Main";
-import DropFileCard from "./components/DropFileCard";
+import SignIn from "./containers/SignIn";
 
 const styles = theme => ({
   "@global": {
@@ -41,22 +42,30 @@ class App extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
-        <ButtonAppBar />
-        <Main />
-        <footer className={classes.footer}>
-          <Typography
-            variant="subtitle1"
-            align="center"
-            color="textSecondary"
-            component="p"
-          >
-            © syntheticgestalt Inc. All rights reserved.
-          </Typography>
-        </footer>
-      </div>
+      <Router>
+        <div>
+          <ButtonAppBar />
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route path="/login" component={SignIn} />
+          </Switch>
+          <footer className={classes.footer}>
+            <Typography
+              variant="subtitle1"
+              align="center"
+              color="textSecondary"
+              component="p"
+            >
+              © syntheticgestalt Inc. All rights reserved.
+            </Typography>
+          </footer>
+        </div>
+      </Router>
     );
   }
 }
 
 export default withStyles(styles)(App);
+
+import { login, logout } from "./actions/SignIn";
+console.log(login("hiroo", "password"));
