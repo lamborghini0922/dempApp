@@ -35,7 +35,7 @@ class Main extends React.Component {
       "/static/images/dog_guided_grad_cam.png"
     ];
     const titles = [
-      "upload images",
+      "Upload image",
       "Classification Results",
       "Softmax",
       "Guided Backprop Cat",
