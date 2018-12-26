@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import Main from "./containers/Main";
 import SignIn from "./containers/SignIn";
-import Auth from "./Auth";
 import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
