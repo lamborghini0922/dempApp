@@ -5,6 +5,7 @@ export function login(user, password) {
     dispatch(requestLogin());
     signInAPI(user, password)
       .then(response => {
+        console.log(`response=${response.data.status}`);
         if (response.data.status == "OK") {
           dispatch(receiveLoginSuccess(response.data));
         } else {
@@ -12,6 +13,7 @@ export function login(user, password) {
         }
       })
       .catch(e => {
+        console.log(e);
         dispatch(receiveLoginFailed());
       });
   };

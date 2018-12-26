@@ -4,6 +4,9 @@ var initialState = {
 };
 
 export default function login(state = initialState, action) {
+  console.log("reducers/login");
+  console.log(`action=${action.type}`);
+  console.log(JSON.stringify(action.data));
   var _state = Object.assign({}, state);
   switch (action.type) {
     case "LOGIN_REQUEST":
@@ -13,6 +16,7 @@ export default function login(state = initialState, action) {
     case "LOGIN_RECEIVE_SUCCESS":
       _state.status = 1;
       _state.session = action.data.result.user;
+      console.log(JSON.stringify(_state));
       return _state;
 
     case "LOGIN_RECEIVE_FAILED":

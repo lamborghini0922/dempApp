@@ -12,6 +12,7 @@ import LockIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
+import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
   main: {
@@ -52,18 +53,15 @@ class SignIn extends React.Component {
     this.state = { contact: [] };
   }
 
-  static propTypes = {
-    sessionId: PropTypes.string,
-    message: PropTypes.string,
-    dispatch: PropTypes.func.isRequired
-  };
+  componentWillReceiveProps(nextState) {
+    console.log(`receiveProps`);
+    console.log(JSON.stringify(nextState));
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.sessionId) {
-      this.setState({ sessionId: nextProps.sessionId });
-      localStorage.setItem("sessionId", this.state.sessionId);
+    if (nextState.user.session) {
+      this.setState({ session: nextState.user.session });
+      localStorage.setItem("session", this.state.session);
     } else {
-      this.setState({ message: nextProps.message });
+      this.setState({ message: "login fail" });
     }
   }
 
@@ -88,17 +86,19 @@ class SignIn extends React.Component {
   }
 
   handleChange(propertyName, e) {
-    console.log(propertyName);
-    console.log(e.target.value);
     const contact = this.state.contact;
     contact[propertyName] = e.target.value;
     this.setState({ contact: contact });
   }
 
   render() {
+    const { user } = this.props;
+    console.log("render())");
+    console.log(JSON.stringify(user));
     const { classes } = this.props;
-
-    return (
+    return this.state.session ? (
+      <Redirect to={"/"} />
+    ) : (
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
@@ -157,10 +157,3 @@ SignIn.propTypes = {
 };
 
 export default withStyles(styles)(SignIn);
-
-/*const mapStateToProps = state => ({
-  sessionId: state.loginReducer.login.sessionId,
-  message: state.loginReducer.login.message,
-});
-
-export default withRouter(connect(mapStateToProps)(Login));*/

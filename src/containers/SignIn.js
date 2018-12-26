@@ -1,6 +1,11 @@
 import SignIn from "../components/SignIn";
 import { login } from "../actions/SignIn";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
+const mapStateToProps = state => ({
+  user: state.user
+});
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -10,7 +15,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(SignIn);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SignIn)
+);
