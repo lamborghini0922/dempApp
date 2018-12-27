@@ -10,8 +10,6 @@ const middlewares = [thunk];
 
 const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
-console.log(store.getState());
-
 ReactDOM.render(
   <Provider store={store}>
     <App />

@@ -13,7 +13,6 @@ import { Redirect } from "react-router-dom";
 import ButtonAppBar from "../containers/ButtonAppBar";
 import Typography from "@material-ui/core/Typography";
 import LoadingOverlay from "react-loading-overlay";
-import ClassificationTable from "./ClassificationTable";
 
 const styles = theme => ({
   root: {
@@ -60,14 +59,12 @@ class Main extends React.Component {
   render() {
     const { loginStatus } = this.props;
     const sts = loginStatus.loginStatus.status;
-    const { loginApi } = this.props;
 
     const { classes } = this.props;
 
     const { classifyRequestStatus } = this.props;
     const classifyRespnseStatus =
       classifyRequestStatus.classifyRequestStatus.status;
-    console.log(`classifyRespnseStatus=${classifyRespnseStatus}`);
 
     var original = null;
     var guidedBackprop = null;
@@ -77,7 +74,6 @@ class Main extends React.Component {
 
     if (classifyRespnseStatus === 1) {
       const response = classifyRequestStatus.classifyRequestStatus.response;
-      console.log(JSON.stringify(response));
       original = classifyRequestStatus.classifyRequestStatus.request;
       guidedBackprop = response.results.camResult["guidedBackprop"];
       gradCAM = response.results.camResult["gradCAM"];
@@ -92,9 +88,9 @@ class Main extends React.Component {
       "Upload image",
       "Classification Results",
       "Softmax",
-      "Guided Backprop Cat",
-      "Grad-CAM Cat",
-      "Guided Grad-CAM Cat"
+      "Guided Backprop ",
+      "Grad-CAM ",
+      "Guided Grad-CAM "
     ];
     return sts !== 1 ? (
       <Redirect to={"/login"} />
@@ -109,7 +105,7 @@ class Main extends React.Component {
                   <DropFileCard image={original} title={titles[0]} />
                 </Grid>
                 <Grid item xs={4}>
-                  <ClassificationTable
+                  <ClassificationResultCard
                     classificationResults={classificationResults}
                     title={titles[1]}
                   />

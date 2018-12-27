@@ -19,38 +19,28 @@ class PlotResult extends React.Component {
   }
   render() {
     const { classificationResults } = this.props;
-    console.log("plot");
-    console.log(JSON.stringify(classificationResults));
 
     var x = [];
     var y = [];
     var text = [];
 
     classificationResults.map((obj, key) => {
-      console.log(key + " " + obj.name + " " + obj.value);
       x[key] = obj.name;
       y[key] = Number(obj.value);
-      text[key] = obj.name;
+      //text[key] = obj.name;
     });
-
-    /*
-    var x = [];
-    for (var i = 0; i < 500; i++) {
-      x[i] = Math.random();
-    }
-    */
 
     var layout = {
       autosize: true,
       width: 470,
-      //width: 300,
-      //width: 400,
       height: 262,
       margin: {
-        b: 15,
-        t: 5,
+        b: 30,
+        t: 15,
         pad: 1
-      }
+      },
+      xaxis: { rangemode: "tozero" },
+      yaxis: { rangemode: "tozero" }
     };
 
     var trace = {

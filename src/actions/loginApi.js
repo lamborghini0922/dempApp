@@ -5,7 +5,6 @@ const loginApi = (user, password) => {
     dispatch(requestLogin());
     signInApi(user, password)
       .then(response => {
-        console.log(`response=${response.data.status}`);
         if (response.data.status === "OK") {
           dispatch(receiveLoginSuccess(response.data));
         } else {
@@ -13,7 +12,6 @@ const loginApi = (user, password) => {
         }
       })
       .catch(e => {
-        console.log(e);
         dispatch(receiveLoginFailed());
       });
   };
@@ -26,17 +24,14 @@ export const logoutApi = () => {
 };
 
 export function logout() {
-  console.log("logout atcion");
   return { type: "LOGOUT" };
 }
 
 function requestLogin() {
-  console.log("login...");
   return { type: "LOGIN_REQUEST" };
 }
 
 function receiveLoginSuccess(data) {
-  console.log("login succeeded");
   return {
     type: "LOGIN_RECEIVE_SUCCESS",
     data: data
@@ -44,7 +39,6 @@ function receiveLoginSuccess(data) {
 }
 
 function receiveLoginFailed() {
-  console.log("login failed");
   return {
     type: "LOGIN_RECEIVE_FAILED"
   };

@@ -31,12 +31,7 @@ class MediaCard extends React.Component {
 
     return (
       <Card className={classes.card}>
-        <CardMedia
-          component="img"
-          className={classes.media}
-          image={image}
-          title={title}
-        />
+        <CardMedia component="img" className={classes.media} image={image} />
 
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">

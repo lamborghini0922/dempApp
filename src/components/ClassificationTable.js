@@ -17,9 +17,10 @@ import Paper from "@material-ui/core/Paper";
 
 const styles = theme => ({
   root: {
-    width: "100%",
+    width: "70%",
     marginTop: theme.spacing.unit * 1,
-    overflowX: "auto"
+    overflowX: "auto",
+    margin: "auto"
   },
   table: {
     minWidth: 200
@@ -145,16 +146,22 @@ class ClassificationTable extends React.Component {
   };
 
   componentWillReceiveProps(nextState) {
-    console.log("classificationTabel componentWillReceiveProps()");
-
     if (nextState.classificationResults) {
       this.setState({ classificationResults: nextState.classificationResults });
-      console.log(JSON.stringify(nextState.classificationResults));
+
       const results = nextState.classificationResults;
 
       const list = results.map(obj => {
         return createData(obj.name, (Number(obj.value) * 100.0).toFixed(2));
       });
+      list.sort(function(a, b) {
+        if (Number(a.percentage) > Number(b.percentage)) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+
       this.setState({ rows: list });
     }
   }
@@ -164,12 +171,7 @@ class ClassificationTable extends React.Component {
     const { rows, rowsPerPage, page } = this.state;
     const emptyRows =
       rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-    const myStyle = { height: "34px", padding: "0px" };
-
-    const { classificationResults } = this.props;
-    console.log("classificationTabel render()");
-    console.log(JSON.stringify(classificationResults));
-    //if(classificationResults.length >0)
+    const myStyle = { height: "34px", padding: "0px", fontSize: "4em" };
 
     return (
       <Paper className={classes.root}>
@@ -194,7 +196,7 @@ class ClassificationTable extends React.Component {
                 );
               })}
             {emptyRows > 0 && (
-              <TableRow style={{ height: 48 * emptyRows }}>
+              <TableRow style={{ height: 34 * emptyRows }}>
                 <TableCell colSpan={6} />
               </TableRow>
             )}

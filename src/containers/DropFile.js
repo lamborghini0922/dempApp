@@ -9,7 +9,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  console.log("dropfile/mapDispatchToProps");
   return {
     classifyAction: request => {
       dispatch(classifyAction(request));

@@ -28,15 +28,14 @@ class DropFile extends React.Component {
     // For a full list of possible configurations,
     // please consult http://www.dropzonejs.com/#configuration
     this.djsConfig = {
-      addRemoveLinks: true,
-      acceptedFiles: "image/jpeg,image/png,image/gif",
+      addRemoveLinks: false,
+      acceptedFiles: "image/jpeg,image/png",
       autoProcessQueue: false,
+      thumbnailWidth: 270,
+      thumbnailHeight: 270,
       previewTemplate: ReactDOMServer.renderToStaticMarkup(
         <div className="dz-preview dz-file-preview">
           <div className="dz-details">
-            <div className="dz-filename">
-              <span data-dz-name="true" />
-            </div>
             <img data-dz-thumbnail="true" />
           </div>
           <div className="dz-progress">
@@ -66,6 +65,7 @@ class DropFile extends React.Component {
       event => {
         console.log(event);
         console.log(this.dropzone);
+        this.dropzone.removeAllFiles();
       }
     ];
 
