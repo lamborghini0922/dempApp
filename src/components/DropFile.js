@@ -60,6 +60,7 @@ class DropFile extends React.Component {
       event => {
         console.log(event);
         console.log(this.dropzone);
+
         this.dropzone.removeAllFiles();
       },
       event => {
@@ -71,8 +72,26 @@ class DropFile extends React.Component {
     this.dropzone = null;
   }
 
+  componentWillReceiveProps(nextState) {
+    if (nextState.classifyRequestStatus) {
+      this.setState({ classifyRequestStatus: nextState.classifyRequestStatus });
+    } else {
+      this.setState({ message: "classify fail" });
+    }
+  }
   handleFileAdded(file) {
+    console.log("handleFileAdded");
     console.log(file);
+  }
+
+  handleThumnail(file, dataUri) {
+    const { classifyAction } = this.props;
+    console.log("handleThumnail");
+    const base64data = dataUri;
+    console.log(file);
+
+    console.log(classifyAction);
+    classifyAction("aaaa");
   }
 
   handleDelete(file) {
@@ -87,9 +106,15 @@ class DropFile extends React.Component {
     const eventHandlers = {
       init: dz => (this.dropzone = dz),
       drop: this.callbackArray,
+      thumbnail: this.handleThumnail.bind(this),
       addedfile: this.handleFileAdded.bind(this),
       complete: this.handleDelete.bind(this)
     };
+
+    const { classifyRequestStatus } = this.props;
+    console.log("render() classifyRequestStatus");
+    console.log(JSON.stringify(classifyRequestStatus.classificationResults));
+    //const sts = classifyRequestStatus.loginStatus.status;
 
     return (
       <DropzoneComponent

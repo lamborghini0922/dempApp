@@ -1,6 +1,7 @@
 import classifyApi from "../APIs/classifyApi";
 
 const classifyAction = request => {
+  console.log("classifyAction");
   return dispatch => {
     dispatch(requestClassifyAction(request));
     classifyApi(request)
@@ -29,6 +30,7 @@ function requestClassifyAction(request) {
 
 function receiveClassifyActionSuccess(data) {
   console.log("classify succeeded");
+  console.log(JSON.stringify(data));
   return {
     type: "CLASSIFY_RECEIVE_SUCCESS",
     response: data

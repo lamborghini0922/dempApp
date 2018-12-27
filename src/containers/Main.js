@@ -5,7 +5,8 @@ import { withRouter } from "react-router-dom";
 
 const mapStateToProps = state => {
   return {
-    loginStatus: state
+    loginStatus: state,
+    classifyRequestStatus: state
   };
 };
 

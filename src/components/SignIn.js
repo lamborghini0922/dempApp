@@ -65,6 +65,7 @@ class SignIn extends React.Component {
   onLogin(e) {
     e.preventDefault();
     const { loginApi } = this.props;
+    console.log(loginApi);
 
     let id = this.state.contact.id;
     let pass = this.state.contact.password;

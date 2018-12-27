@@ -7,6 +7,11 @@ const initialState = {
 
 const classifyRequestStatus = (state = initialState, action) => {
   var _state = Object.assign({}, state);
+  console.log(
+    `classifyRequestStatus action=${action.type} request=${
+      action.request
+    } response=${action.response}`
+  );
   switch (action.type) {
     case "CLASSIFY_REQUEST":
       _state.status = 0;

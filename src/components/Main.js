@@ -35,8 +35,10 @@ class Main extends React.Component {
 
   componentWillReceiveProps(nextState) {
     if (nextState.loginStatus) {
-      this.setState({ loginStatus: nextState.loginStatus });
+      this.setState({ loginStatus: nextState.loginStatus.status });
       localStorage.setItem("session", this.loginStatus);
+    } else if (nextState.classifyRequestStatus) {
+      this.setState({ classifyRequestStatus: nextState.classifyRequestStatus });
     } else {
       this.setState({ message: "login fail" });
     }
@@ -45,13 +47,14 @@ class Main extends React.Component {
   render() {
     const { loginStatus } = this.props;
     const sts = loginStatus.loginStatus.status;
+    const { loginApi } = this.props;
 
     const { classes } = this.props;
     const images = [
       "/static/images/dog_original.png",
-      "/static/images/dog_guided_backprop.png",
-      "/static/images/dog_grad_cam.png",
-      "/static/images/dog_guided_grad_cam.png"
+      "https://s3-ap-northeast-1.amazonaws.com/sagemaker-hiroo-test/cam-dummy/dog_guided_backprop.png",
+      "https://s3-ap-northeast-1.amazonaws.com/sagemaker-hiroo-test/cam-dummy/dog_grad_cam.png",
+      "https://s3-ap-northeast-1.amazonaws.com/sagemaker-hiroo-test/cam-dummy/dog_guided_grad_cam.png"
     ];
     const titles = [
       "Upload image",
