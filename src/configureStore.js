@@ -7,9 +7,9 @@ import rootReducer from "./reducers";
 // 永続化の設定
 const persistConfig = {
   key: "cell-inspector", // Storageに保存されるキー名を指定する
-  storage // 保存先としてlocalStorageがここで設定される
+  storage, // 保存先としてlocalStorageがここで設定される
   //whitelist: ['todos'] // Stateは`todos`のみStorageに保存する
-  // blacklist: ['visibilityFilter'] // `visibilityFilter`は保存しない
+  blacklist: ["classifyRequestStatus"] // `visibilityFilter`は保存しない
 };
 
 const middlewares = [thunk];
