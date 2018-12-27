@@ -56,7 +56,7 @@ class SignIn extends React.Component {
   componentWillReceiveProps(nextState) {
     if (nextState.loginStatus) {
       this.setState({ loginStatus: nextState.loginStatus });
-      localStorage.setItem("session", this.loginStatus);
+      sessionStorage.setItem("cell-inspector-session", this.loginStatus);
     } else {
       this.setState({ message: "login fail" });
     }

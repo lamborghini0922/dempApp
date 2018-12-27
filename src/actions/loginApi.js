@@ -6,6 +6,7 @@ const loginApi = (user, password) => {
     signInApi(user, password)
       .then(response => {
         if (response.data.status === "OK") {
+          sessionStorage.setItem("cell-inspector-session", response.data);
           dispatch(receiveLoginSuccess(response.data));
         } else {
           dispatch(receiveLoginFailed());
@@ -24,6 +25,7 @@ export const logoutApi = () => {
 };
 
 export function logout() {
+  sessionStorage.clear();
   return { type: "LOGOUT" };
 }
 
