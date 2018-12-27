@@ -12,6 +12,8 @@ import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import ButtonAppBar from "../containers/ButtonAppBar";
 import Typography from "@material-ui/core/Typography";
+import LoadingOverlay from "react-loading-overlay";
+import ClassificationTable from "./ClassificationTable";
 
 const styles = theme => ({
   root: {
@@ -44,18 +46,48 @@ class Main extends React.Component {
     }
   }
 
+  /*componentDidUpdate(prevProps, prevState) {
+    if (this.props.loginStatus) {
+      this.setState({ loginStatus: this.props.loginStatus });
+      localStorage.setItem("session", this.loginStatus);
+    } else if (this.props.classifyRequestStatus) {
+      this.setState({ classifyRequestStatus: this.props.classifyRequestStatus });
+    } else {
+      this.setState({ message: "login fail" });
+    }
+    　 }*/
+
   render() {
     const { loginStatus } = this.props;
     const sts = loginStatus.loginStatus.status;
     const { loginApi } = this.props;
 
     const { classes } = this.props;
-    const images = [
-      "/static/images/dog_original.png",
-      "https://s3-ap-northeast-1.amazonaws.com/sagemaker-hiroo-test/cam-dummy/dog_guided_backprop.png",
-      "https://s3-ap-northeast-1.amazonaws.com/sagemaker-hiroo-test/cam-dummy/dog_grad_cam.png",
-      "https://s3-ap-northeast-1.amazonaws.com/sagemaker-hiroo-test/cam-dummy/dog_guided_grad_cam.png"
-    ];
+
+    const { classifyRequestStatus } = this.props;
+    const classifyRespnseStatus =
+      classifyRequestStatus.classifyRequestStatus.status;
+    console.log(`classifyRespnseStatus=${classifyRespnseStatus}`);
+
+    var original = null;
+    var guidedBackprop = null;
+    var gradCAM = null;
+    var guidedGradCAM = null;
+    var classificationResults = [];
+
+    if (classifyRespnseStatus === 1) {
+      const response = classifyRequestStatus.classifyRequestStatus.response;
+      console.log(JSON.stringify(response));
+      original = classifyRequestStatus.classifyRequestStatus.request;
+      guidedBackprop = response.results.camResult["guidedBackprop"];
+      gradCAM = response.results.camResult["gradCAM"];
+      guidedGradCAM = response.results.camResult["guidedGradCAM"];
+      classificationResults = response.results.classificationResults;
+    }
+
+    // isProcessing
+    const isActive = classifyRespnseStatus === 2 ? true : false;
+
     const titles = [
       "Upload image",
       "Classification Results",
@@ -68,43 +100,51 @@ class Main extends React.Component {
       <Redirect to={"/login"} />
     ) : (
       <MuiThemeProvider>
-        <div className={classes.root}>
-          <ButtonAppBar />
-          <Grid container spacing={8}>
-            <Grid container item xs={12} spacing={24}>
-              <Grid item xs={4}>
-                <DropFileCard image={images[0]} title={titles[0]} />
+        <LoadingOverlay active={isActive} spinner text="Loading ...">
+          <div className={classes.root}>
+            <ButtonAppBar />
+            <Grid container spacing={8}>
+              <Grid container item xs={12} spacing={24}>
+                <Grid item xs={4}>
+                  <DropFileCard image={original} title={titles[0]} />
+                </Grid>
+                <Grid item xs={4}>
+                  <ClassificationTable
+                    classificationResults={classificationResults}
+                    title={titles[1]}
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <PlotResultCard
+                    classificationResults={classificationResults}
+                    title={titles[2]}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={4}>
-                <ClassificationResultCard title={titles[1]} />
-              </Grid>
-              <Grid item xs={4}>
-                <PlotResultCard title={titles[2]} />
+              <Grid container item xs={12} spacing={24}>
+                <Grid item xs={4}>
+                  <MediaCard image={guidedBackprop} title={titles[3]} />
+                </Grid>
+                <Grid item xs={4}>
+                  <MediaCard image={gradCAM} title={titles[4]} />
+                </Grid>
+                <Grid item xs={4}>
+                  <MediaCard image={guidedGradCAM} title={titles[5]} />
+                </Grid>
               </Grid>
             </Grid>
-            <Grid container item xs={12} spacing={24}>
-              <Grid item xs={4}>
-                <MediaCard image={images[1]} title={titles[3]} />
-              </Grid>
-              <Grid item xs={4}>
-                <MediaCard image={images[2]} title={titles[4]} />
-              </Grid>
-              <Grid item xs={4}>
-                <MediaCard image={images[3]} title={titles[5]} />
-              </Grid>
-            </Grid>
-          </Grid>
-          <footer className={classes.footer}>
-            <Typography
-              variant="subtitle1"
-              align="center"
-              color="textSecondary"
-              component="p"
-            >
-              © syntheticgestalt Inc. All rights reserved.
-            </Typography>
-          </footer>
-        </div>
+            <footer className={classes.footer}>
+              <Typography
+                variant="subtitle1"
+                align="center"
+                color="textSecondary"
+                component="p"
+              >
+                © syntheticgestalt Inc. All rights reserved.
+              </Typography>
+            </footer>
+          </div>
+        </LoadingOverlay>
       </MuiThemeProvider>
     );
   }

@@ -14,7 +14,7 @@ const classifyRequestStatus = (state = initialState, action) => {
   );
   switch (action.type) {
     case "CLASSIFY_REQUEST":
-      _state.status = 0;
+      _state.status = 2;
       _state.request = action.request;
       _state.message = "loading...";
       return _state;

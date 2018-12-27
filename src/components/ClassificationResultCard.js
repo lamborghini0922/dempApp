@@ -28,11 +28,11 @@ class ClassificationResultCard extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { image } = this.props;
+    const { classificationResults } = this.props;
     const { title } = this.props;
     return (
       <Card className={classes.card}>
-        <ClassificationTable />
+        <ClassificationTable classificationResults={classificationResults} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {title}

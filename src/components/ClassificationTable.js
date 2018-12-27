@@ -124,30 +124,15 @@ class ClassificationTable extends React.Component {
     super(props);
     this.state = {
       rows: [
-        createData("Frozen yoghurt", 77.8),
-        createData("Ice cream sandwich", 20.2),
-        createData("Eclair", 0.5),
-        createData("Cupcake", 0.21),
-        createData("Gingerbread", 0.01),
-        createData("Gingerbread", 0.01),
-        createData("Gingerbread", 0.01),
-        createData("Frozen yoghurt", 77.8),
-        createData("Ice cream sandwich", 20.2),
-        createData("Eclair", 0.5),
-        createData("Cupcake", 0.21),
-        createData("Gingerbread", 0.01),
-        createData("Gingerbread", 0.01),
-        createData("Gingerbread", 0.01),
-        createData("Frozen yoghurt", 77.8),
-        createData("Ice cream sandwich", 20.2),
-        createData("Eclair", 0.5),
-        createData("Cupcake", 0.21),
-        createData("Gingerbread", 0.01),
-        createData("Gingerbread", 0.01),
-        createData("Gingerbread", 0.01)
+        createData("", 0),
+        createData("", 0),
+        createData("", 0),
+        createData("", 0),
+        createData("", 0)
       ].sort((a, b) => (a.calories < b.calories ? -1 : 1)),
       page: 0,
-      rowsPerPage: 5
+      rowsPerPage: 5,
+      classificationResults: []
     };
   }
 
@@ -159,12 +144,32 @@ class ClassificationTable extends React.Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
+  componentWillReceiveProps(nextState) {
+    console.log("classificationTabel componentWillReceiveProps()");
+
+    if (nextState.classificationResults) {
+      this.setState({ classificationResults: nextState.classificationResults });
+      console.log(JSON.stringify(nextState.classificationResults));
+      const results = nextState.classificationResults;
+
+      const list = results.map(obj => {
+        return createData(obj.name, (Number(obj.value) * 100.0).toFixed(2));
+      });
+      this.setState({ rows: list });
+    }
+  }
+
   render() {
     const { classes } = this.props;
     const { rows, rowsPerPage, page } = this.state;
     const emptyRows =
       rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
     const myStyle = { height: "34px", padding: "0px" };
+
+    const { classificationResults } = this.props;
+    console.log("classificationTabel render()");
+    console.log(JSON.stringify(classificationResults));
+    //if(classificationResults.length >0)
 
     return (
       <Paper className={classes.root}>

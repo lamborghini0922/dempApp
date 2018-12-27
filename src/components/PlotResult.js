@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
   root: {
-    width: "100%",
+    width: "80%",
     marginTop: theme.spacing.unit * 1,
     overflowX: "auto"
   },
@@ -18,27 +18,46 @@ class PlotResult extends React.Component {
     super(props);
   }
   render() {
+    const { classificationResults } = this.props;
+    console.log("plot");
+    console.log(JSON.stringify(classificationResults));
+
+    var x = [];
+    var y = [];
+    var text = [];
+
+    classificationResults.map((obj, key) => {
+      console.log(key + " " + obj.name + " " + obj.value);
+      x[key] = obj.name;
+      y[key] = Number(obj.value);
+      text[key] = obj.name;
+    });
+
+    /*
     var x = [];
     for (var i = 0; i < 500; i++) {
       x[i] = Math.random();
     }
+    */
 
     var layout = {
-      autosize: false,
-      //width: 470,
+      autosize: true,
+      width: 470,
       //width: 300,
-      width: 400,
+      //width: 400,
       height: 262,
       margin: {
-        b: 25,
-        t: 15,
+        b: 15,
+        t: 5,
         pad: 1
       }
     };
 
     var trace = {
       x: x,
-      type: "histogram"
+      y: y,
+      text: text,
+      type: "bar"
     };
     var data = [trace];
 
